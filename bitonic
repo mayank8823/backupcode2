@@ -1,0 +1,118 @@
+import java.util.Scanner;
+import java.util.*;
+
+class bitonic {
+
+    private static int findMaxElement(int[] a) {
+        int n = a.length;
+        int start = 0;
+        int end = n - 1;
+
+        while (start <= end) {
+            int mid = start+(end-start) / 2;
+
+            if ((mid == 0 || a[mid] < a[mid - 1]) && (mid == n - 1 || a[mid] < a[mid + 1])) { 
+                return a[mid];   // a[mid] is greater than both its neighbours
+            } else if (a[mid] > a[mid - 1]) {                 
+                start = mid + 1;
+                  // a[mid] is smaller than its previous element, maximum lies in left half
+            } else {                 
+                end = mid - 1;  // maximum lies in the right half
+            }
+        }
+
+        return -1;
+    }
+
+    static int checkBitonic(int arr[], int n)
+{
+    int i, j;
+ 
+    // Check for increasing sequence
+    for (i = 1; i < n; i++)
+    {
+        if (arr[i] > arr[i - 1])
+            continue;
+ 
+        if (arr[i] <= arr[i - 1])
+            break;
+    }
+ 
+    if (i == n - 1)
+        return 1;
+ 
+    // Check for decreasing sequence
+    for (j = i + 1; j < n; j++)
+    {
+        if (arr[j] < arr[j - 1])
+            continue;
+ 
+        if (arr[j] >= arr[j - 1])
+            break;
+    }
+ 
+    i = j;
+ 
+    if (i != n)
+        return 0;
+ 
+    return 1;
+    }
+
+    static int findBitonicPoint(int arr[],
+                                int n,
+                                int l,
+                                int r)
+    {
+        int mid;
+        int bitonicPoint = 0;
+        mid = (r + l) / 2;
+        if (arr[mid] > arr[mid - 1]
+            && arr[mid] > arr[mid + 1])
+        {
+            return mid;
+        }
+        else {
+            if (arr[mid] > arr[mid - 1]
+                && arr[mid] < arr[mid + 1])
+            {
+                bitonicPoint = findBitonicPoint(arr, n, mid, r);
+            }
+            else {
+                if (arr[mid] < arr[mid - 1]
+                    && arr[mid] > arr[mid + 1])
+                {
+                    bitonicPoint = findBitonicPoint(arr, n, l, mid);
+                }
+            }
+        }
+        return bitonicPoint;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
+        sc.close();
+        if(checkBitonic(a,n)==1){
+            System.out.println("Bitonic");
+        }
+
+        int nu, l, r;
+        nu = a.length;
+        l = 0;
+        r = n - 1;
+
+        int k = (findBitonicPoint(a,nu,l,r));
+        System.out.println(k);
+        if(a[k+1]>a[k-1]){
+            System.out.println(a[k-1]);
+        }
+        else{
+            System.out.println(a[k+1]);
+        }
+    }
+}
