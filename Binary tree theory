@@ -1,0 +1,15 @@
+Binary Tree is defined as a Tree data structure with at most 2 children. Since each element in a binary tree can have only 2 children, we typically name them the left 
+and right child.
+A Binary tree is represented by a pointer to the topmost node of the tree. If the tree is empty, then the value of the root is NULL.
+
+Binary Tree node contains the following parts:
+
+Data
+Pointer to left child
+Pointer to right child
+
+Unlike linear data structures (Array, Linked List, Queues, Stacks, etc) which have only one logical way to traverse them, trees can be traversed in different ways.
+The following are the generally used methods for traversing trees:
+Inorder Traversal 
+Preorder Traversal
+Postorder Traversal 
