@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+// Creating Node
+struct Node
+{
+    int iData;
+    struct Node *pNextNode;
+};
+// Define the new type Node type and Node pointer
+typedef  struct Node  NodeType, * NodePointer;
+/* Function to rotate linked list by n nodes */
+void RotateALinkedList(NodePointer *pHead, int iNode)
+{
+    int iCount = 0;
+    NodePointer Current = *pHead;
+    NodePointer TmpNode =NULL;
+    //Get the position of nth node
+    for(iCount = 1 ; ((iCount < iNode) && (Current!=NULL)) ; iCount++)
+    {
+        Current = Current->pNextNode;
+    }
+    if(Current == NULL)
+    {
+        return;
+    }
+    else
+    {
+        //nth Node
+        TmpNode = Current;
+    }
+    //Get the last node
+    while (Current->pNextNode != NULL)
+    {
+        Current  = Current->pNextNode;
+    }
+    //Assign the address of first node to the last node
+    Current->pNextNode =  *pHead;
+    //Now Last node become first node
+    *pHead = TmpNode->pNextNode;
+    // Current->pNextNode = RotateNode;
+    TmpNode->pNextNode = NULL;
+}
+/* Paas the reference of the head pointer of a list and
+   an integer data. This function use to add the node at the End*/
+int InsertNodeAtEnd(NodePointer * pHead, int iUserData)
+{
+    int iRetValue = -1;
+    NodePointer pLastNode = NULL;
+    NodePointer pNewNode = NULL;
+    //Give the Address of first Node
+    pLastNode  = *pHead;
+    // Call malloc to allocate memory in heap for the new node
+    pNewNode = malloc(sizeof(NodeType));
+    if( pNewNode != NULL) //Check allocated memory
+    {
+        pNewNode->iData = iUserData; //put the desire Data
+        pNewNode->pNextNode  = NULL; //Give the Address of first Node
+        iRetValue = 0; // Update the return value
+    }
+    // If there is no node in beginning
+    if(pLastNode == NULL)
+    {
+        *pHead = pNewNode;
+    }
+    else
+    {
+        // Find the address of last node
+        while( pLastNode ->pNextNode != NULL)
+        {
+            pLastNode  = pLastNode ->pNextNode;
+        }
+        // Assign last node address
+        pLastNode ->pNextNode = pNewNode;
+    }
+    return iRetValue;
+}
