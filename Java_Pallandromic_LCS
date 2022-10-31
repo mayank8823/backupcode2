@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class cs263_lab4 {
+
+    public static int longest_pallindromic_subsequence(String x, String y, int i, int j, int dp[][]) {
+
+        if(i==0 || j==0){
+            return 0;
+        }
+       
+
+        if(dp[i][j] != -1) {
+            return dp[i][j];
+        }
+
+
+        if(x.charAt(i-1) == y.charAt(j-1)){
+            return dp[i][j] = 1 + longest_pallindromic_subsequence(x, y, i-1, j-1, dp);
+        }
+
+        
+        else{
+            return dp[i][j] =  Math.max(longest_pallindromic_subsequence(x, y, i-1, j, dp), longest_pallindromic_subsequence(x, y, i, j-1, dp));
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        //Taking String input
+        System.out.println("Enter a string here: ");
+        String x = sc.next();
+
+        //Declaring size of the string
+        int s = x.length();
+
+        //Creating new string and reverse the input string
+        String y ="";
+        for(int i = s-1;i>=0;i--){
+            y = y + x.charAt(i);
+        }
+         
+        //Creating matrix and intializing with -1.
+        int dp[][] = new int[s+1][s+1];
+        for(int i=0; i<=s; i++) {
+            for(int j=0; j<=s; j++) {
+                dp[i][j] = -1;
+            }
+        }
+
+        //Calling function to get longest pallindromic sequence
+        int t =  longest_pallindromic_subsequence(x, y, s, s,dp);
+        System.out.println("Length of longest pallindromic sequence is: " + t);
+    }
+}
+
+
+
