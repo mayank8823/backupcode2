@@ -1,0 +1,25 @@
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null)
+            return null;
+        // assumption : this is a undirected connected graph
+        LinkedList<UndirectedGraphNode> q = new LinkedList<UndirectedGraphNode>();
+        //map contains only copied nodes
+        HashMap<Integer, UndirectedGraphNode> map = new HashMap<Integer, UndirectedGraphNode>();
+        q.add(node);// in q original nodes
+        map.put(node.label, new UndirectedGraphNode(node.label));
+        while (q.size() > 0){
+            UndirectedGraphNode now = q.pollFirst();
+            UndirectedGraphNode copied = map.get(now.label);
+            copied.neighbors = new ArrayList<UndirectedGraphNode>();
+            for (UndirectedGraphNode n:now.neighbors){
+                if (!map.containsKey(n.label)){
+                    q.add(n);
+                    map.put(n.label, new UndirectedGraphNode(n.label));
+                }
+                copied.neighbors.add(map.get(n.label));
+            }
+        }//while
+        return map.get(node.label);
+    }//cloneGraph
+}
