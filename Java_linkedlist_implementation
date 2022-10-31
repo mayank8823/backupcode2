@@ -1,0 +1,212 @@
+public class linkedList {
+
+    public static class Node {
+
+        Object data;
+        Node next;
+
+        Node(Object val) {
+            data = val;
+            next = null;
+        }
+    }
+
+    Node head;
+    int count = -1;
+
+
+
+    public linkedList Atend(linkedList ll, Object a) {
+        Node new_node = new Node(a);
+          
+        if(ll.head == null){
+            ll.head = new_node;
+             count ++;
+        }
+        else{
+            Node temp = ll.head;
+            while(temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = new_node;
+            count++;
+        }
+        return ll;
+    }
+
+
+
+    public linkedList Athead(linkedList ll, int a) {
+        Node new_node = new Node(a);
+        if (ll.head == null) {
+            ll.head = new_node;
+            count++;
+        }
+        else {
+            new_node.next = ll.head;
+            ll.head = new_node;
+            count++;
+        }
+        return ll;
+    }
+
+
+
+    public void print(linkedList ll) {
+
+        Node temp = ll.head;
+
+        while (temp != null) {
+            System.out.print(temp.data + "-> ");
+            temp = temp.next;
+        }
+
+        System.out.print("NULL");
+        System.out.println('\n');
+    }
+
+
+
+    public void findIndex(Object element ){
+        int index = 0;
+        Node temp = head;
+        while(head.data != element){
+            index++;
+            head = head.next;
+        }
+        head = temp;
+        System.out.println("The index is : " + index);
+        return ;   
+    }
+
+
+
+    public linkedList remove(linkedList ll, int index){
+        Node temp =  head;
+        if(index==0) {
+            head = temp.next;
+            return ll;
+        }
+        while(index!=1){
+            temp = temp.next;
+            index--;
+        }
+        temp.next = temp.next.next;
+        return ll;
+    }
+
+
+
+    public void size() {
+        System.out.println((count+1));
+    }
+
+
+
+    public linkedList insert(linkedList ll, int index,int data){
+        Node new_node = new Node(data);
+        Node temp = head;
+        if(index==0){
+        
+            head = new_node;
+            head.next = temp;
+        }
+        else{
+            // temp = head;
+            while(index!=1);
+            temp = temp.next;
+            index--;
+        }
+        //Node first = temp;
+        Node second = temp.next;
+        temp.next = new_node;
+        
+        return ll;
+    }
+
+
+    public void reverse(linkedList ll) {
+
+        if(head == null  || head.next == null) {
+            return;
+        }
+
+        Node prevNode = head;
+        Node currNode = head.next;
+
+        while(currNode != null) {
+            Node nextNode = currNode.next;
+            currNode.next = prevNode;
+
+            //update
+            prevNode = currNode;
+            currNode = nextNode;
+        }
+
+    head.next = null;
+    head = prevNode;
+}
+
+
+    public static void main(String[] args) {
+        linkedList list = new linkedList();
+
+        list.Atend(list, 5);
+        list.Athead(list, 3);
+
+        list.Athead(list, 1);
+        list.Atend(list,7);
+        list.print(list);
+       
+       list.findIndex(3);
+
+        System.out.println('\n');
+
+        System.out.println("Reversed Linked List is: ");
+
+        list.reverse(list);
+        list.print(list);
+       
+        list.remove(list,3);
+        list.print(list);
+
+    }
+
+
+
+    public void push(int i) {
+    }
+
+
+
+    public linkedList.Node mergeSort(linkedList.Node head2) {
+        return null;
+    }
+
+
+
+    public void printList(linkedList.Node head2) {
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
