@@ -1,0 +1,85 @@
+import java.util.*;
+
+// Quick sort using two pivot.
+public class cs263_lab3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner (System.in);
+
+        // Take input of total number of elements in the array.
+        System.out.print("Enter the number of elements to be put in the array: ");
+        int n = sc.nextInt();
+        System.out.println();
+
+        // Taking input of elements in the array.
+        int arr[] = new int[n];
+        System.out.print("Enter the elements in the array: ");
+        for(int i=0; i<n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Creating method for sorting the array.
+        dualPivotQuickSort(arr, 0, n-1);
+
+        // Printing the array after sorting.
+        System.out.print("The sorted array is: ");
+        for(int i=0; i<n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static void dualPivotQuickSort(int[] arr, int start, int end) {
+        if(start<end){
+
+            int pstart = partstart(arr,start,end);
+            int pend = partend(arr, start, end);
+    
+            dualPivotQuickSort(arr, start, pstart-1);
+            dualPivotQuickSort(arr, pstart+1, pend-1);
+            dualPivotQuickSort(arr, pend+1, end);
+        }
+    }
+
+    public static int partstart(int arr[],int start,int end){
+        // Making pivot first element.
+        int pivot = arr[start];
+        int i = end +1;
+        for(int j = end; j>start; j--){
+            // If arr[j] is greater than pivot, then swap it.
+            if(arr[j] > pivot){
+                i--;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        i--;
+        int temp = arr[i];
+        arr[i] = arr[start];
+        arr[start] = temp;
+        return i;
+    }
+
+    public static int partend(int arr[],int start,int end){
+        // Making pivot last element.
+        int pivot = arr[end];
+        int i = start -1;
+        for(int j = start; j<end; j++){
+            // If arr[j] is less than pivot, then swap it.
+            if(arr[j] < pivot){
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        i++;
+        int temp = arr[i];
+        arr[i] = arr[end];
+        arr[end] = temp;
+        return i;
+    }
+}
+
+
+
