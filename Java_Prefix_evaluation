@@ -1,0 +1,40 @@
+import java.util.Stack;
+public class Prefix_evaluation {
+    public static int preEval(String str){
+        Stack<Integer> stack = new Stack<>();
+        for(int i=str.length()-1;i>=0;i-- ){
+            char c = str.charAt(i);
+            if(Character.isDigit(c))stack.push(c-'0');
+            else{
+                int first_op = stack.pop();
+                int second_op = stack.pop();
+                switch (c){
+                    case '+':
+                        stack.push(first_op+second_op);
+                        break;
+                    case '-':
+                        stack.push(first_op-second_op);
+                        break;
+                    case '*':
+                        stack.push(first_op*second_op);
+                        break;
+                    case '/':
+                        stack.push(first_op/second_op);
+                        break;
+                    case '^':
+                        stack.push((int)(Math.pow(first_op , second_op)));
+                        break;
+                }
+            }
+        }
+        return stack.pop();
+    }
+    public static void main (String[] args) {
+        String str = "+9*26";
+        System.out.println(preEval(str));
+    }
+}
+
+
+
+
