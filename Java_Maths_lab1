@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class MA201_assignment1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n, k;
+        System.out.print("Please input the number of objects in urn = ");
+        n = sc.nextInt();
+
+        System.out.print("Please enter the number of objects to be choosen from urn = ");
+        k = sc.nextInt();
+        System.out.println();
+
+        System.out.println("OUTPUT");
+        System.out.println("--------------------------------------------------------------");
+
+        if(k > n) {
+            System.out.println("invalid Input case");
+        }
+        else {
+            // case 1 : Permutation with replacement 
+            System.out.println("Permutation with replacement = " + n*n);
+
+            // case 2 : Permutation without replacement
+            System.out.println("Permutation without replacement = " + factorial(n)/factorial(n-k));
+
+            // case 3 : Combination with replacement
+            System.out.println("Combination with replacement = " + factorial (k+n-1) /(factorial (k) * factorial(n-1)));
+
+            // case 4 : Combination without replacement
+            System.out.println("Combination without replacement = " + factorial(n)/(factorial(k)*factorial(n-k)));
+        }
+    }
+
+    public static int factorial(int n) {
+        if (n == 0 || n == 1){
+            return 1;
+        }
+        else {
+            int result = 1;
+            for(int i=n; i>0; i--) {
+                result = result * i;
+            }
+            return result;
+        }
+    }
+}
+
+
