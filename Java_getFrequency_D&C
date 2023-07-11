@@ -1,0 +1,56 @@
+import java.util.*;
+
+// Find frequency of a number by Divide and Conquer
+public class cs263_lab2 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Random getran = new Random();
+        System.out.print("Enter the size of the required array: ");
+        int x = sc.nextInt();
+        int arr[] = new int[x];
+        for(int i=0; i<x; i++) {
+            arr[i] = getran.nextInt(30);
+        }
+
+        System.out.println("Taken array in this case: ");
+        for(int j=0; j<x; j++){
+            System.out.print(arr[j] + " ");
+        }
+        System.out.println();
+
+        System.out.print("Enter the number to be Searched in the array: ");
+        int k = sc.nextInt();
+        System.out.println();
+
+        int count = frequency(arr, 0, x-1, k);
+        System.out.print("The frequency of number in the taken array is: " + count);
+        System.out.println();
+
+    }
+
+    public static int frequency(int arr[], int i, int j, int k) {
+
+        if (i > j) {
+            return 0;
+        }
+
+        if(i == j && arr[i] != k) {
+            return 0;
+        } 
+
+        if (i == j && arr[i] == k) {
+            return 1;
+        }
+        
+        int mid = (i + j) / 2;
+        int left = frequency(arr, i, mid, k);
+        int right = frequency(arr, mid + 1, j, k);
+        int result = left + right;
+        return result;
+
+    }
+}
+
+
+
